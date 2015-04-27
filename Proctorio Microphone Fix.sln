@@ -1,0 +1,59 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.31101.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MixerNativeLibrary", "libs\MixerNativeLibrary\MixerNativeLibrary.csproj", "{A88FFC8F-3FFF-4D22-A003-4627B22387B1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoreAudioApi", "libs\CoreAudioAPI\CoreAudioApi.csproj", "{9F1076AA-63DF-4128-9C10-FD65E425C783}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fix My Microphone!", "Fix My Microphone!\Fix My Microphone!.csproj", "{1858419D-8DC5-41B6-806F-84D7DCF9C6D7}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "libs", "libs", "{953FAF9A-35F8-4D41-8B57-64EBCED26E50}"
+EndProject
+Global
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 2
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://echovoice.visualstudio.com/defaultcollection
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = Fix\u0020My\u0020Microphone!\\Fix\u0020My\u0020Microphone!.csproj
+		SccProjectName1 = Fix\u0020My\u0020Microphone!
+		SccLocalPath1 = Fix\u0020My\u0020Microphone!
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A88FFC8F-3FFF-4D22-A003-4627B22387B1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A88FFC8F-3FFF-4D22-A003-4627B22387B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A88FFC8F-3FFF-4D22-A003-4627B22387B1}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{A88FFC8F-3FFF-4D22-A003-4627B22387B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A88FFC8F-3FFF-4D22-A003-4627B22387B1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A88FFC8F-3FFF-4D22-A003-4627B22387B1}.Release|x86.ActiveCfg = Release|Any CPU
+		{9F1076AA-63DF-4128-9C10-FD65E425C783}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9F1076AA-63DF-4128-9C10-FD65E425C783}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9F1076AA-63DF-4128-9C10-FD65E425C783}.Debug|x86.ActiveCfg = Debug|x86
+		{9F1076AA-63DF-4128-9C10-FD65E425C783}.Debug|x86.Build.0 = Debug|x86
+		{9F1076AA-63DF-4128-9C10-FD65E425C783}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9F1076AA-63DF-4128-9C10-FD65E425C783}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9F1076AA-63DF-4128-9C10-FD65E425C783}.Release|x86.ActiveCfg = Release|x86
+		{9F1076AA-63DF-4128-9C10-FD65E425C783}.Release|x86.Build.0 = Release|x86
+		{1858419D-8DC5-41B6-806F-84D7DCF9C6D7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1858419D-8DC5-41B6-806F-84D7DCF9C6D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1858419D-8DC5-41B6-806F-84D7DCF9C6D7}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{1858419D-8DC5-41B6-806F-84D7DCF9C6D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1858419D-8DC5-41B6-806F-84D7DCF9C6D7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1858419D-8DC5-41B6-806F-84D7DCF9C6D7}.Release|x86.ActiveCfg = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{A88FFC8F-3FFF-4D22-A003-4627B22387B1} = {953FAF9A-35F8-4D41-8B57-64EBCED26E50}
+		{9F1076AA-63DF-4128-9C10-FD65E425C783} = {953FAF9A-35F8-4D41-8B57-64EBCED26E50}
+	EndGlobalSection
+EndGlobal
