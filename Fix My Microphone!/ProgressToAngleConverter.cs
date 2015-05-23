@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Fix_My_Microphone_
+namespace Fix_My_Microphone
 {
     // Credit: http://stackoverflow.com/questions/23046565/wpf-radial-progressbar-meter-i-e-battery-meter
     public class ProgressToAngleConverter : System.Windows.Data.IMultiValueConverter

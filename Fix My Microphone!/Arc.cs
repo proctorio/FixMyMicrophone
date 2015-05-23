@@ -6,7 +6,7 @@ using System.Windows;
 using System.Windows.Media;
 using System.Windows.Shapes;
 
-namespace Fix_My_Microphone_
+namespace Fix_My_Microphone
 {
     // Credit: http://stackoverflow.com/questions/23046565/wpf-radial-progressbar-meter-i-e-battery-meter
     public class Arc : Shape

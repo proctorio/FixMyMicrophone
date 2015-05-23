@@ -6,7 +6,7 @@ using System.Text;
 using System.Windows;
 using System.Windows.Interop;
 
-namespace Fix_My_Microphone_
+namespace Fix_My_Microphone
 {
     // Credit: http://stackoverflow.com/questions/18580430/hide-the-icon-from-a-wpf-window
     public static class IconHelper

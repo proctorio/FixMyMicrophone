@@ -1,7 +1,7 @@
-﻿<Window x:Class="Fix_My_Microphone_.MainWindow"
+﻿<Window x:Class="Fix_My_Microphone.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:local="clr-namespace:Fix_My_Microphone_"
+        xmlns:local="clr-namespace:Fix_My_Microphone"
         Title="Please Fix My Microphone!" Height="373.333" Width="489.697" ResizeMode="NoResize" Topmost="True" WindowStartupLocation="CenterScreen"
         Loaded="OnWindowLoaded" WindowStyle="ToolWindow">
     <Window.Resources>

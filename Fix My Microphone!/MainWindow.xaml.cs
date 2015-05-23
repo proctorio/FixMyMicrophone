@@ -17,7 +17,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
 
-namespace Fix_My_Microphone_
+namespace Fix_My_Microphone
 {
     /// <summary>
     /// Proctorio Inc, Open Source Initiative 2015 https://proctorio.com
