@@ -1,21 +1,8 @@
 ﻿using CoreAudioApi;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using System.Windows.Threading;
 
 namespace Fix_My_Microphone
 {
@@ -33,7 +20,7 @@ namespace Fix_My_Microphone
     /// http://stackoverflow.com/questions/154089/mute-windows-volume-using-c
     /// http://stackoverflow.com/questions/3046668/how-to-mute-microphone-in-windows-7-with-c-c
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow
     {
         public MainWindow()
         {
@@ -54,16 +41,16 @@ namespace Fix_My_Microphone
         public delegate void UpdateTitleCallback(string m);
 
         // thread to animate and unmute microphones
-        private void UIThread()
+        private void UiThread()
         {
             // hang tight
-            P.Dispatcher.Invoke(new UpdateTitleCallback(this.UpdateTitle), new object[] { ("hang tight") });
+            P.Dispatcher.Invoke(new UpdateTitleCallback(UpdateTitle), ("hang tight"));
 
             // sleep a bit
             Thread.Sleep(500);
 
             // find me some microphones
-            P.Dispatcher.Invoke(new UpdateTitleCallback(this.UpdateTitle), new object[] { ("finding microphones to fix...") });
+            P.Dispatcher.Invoke(new UpdateTitleCallback(UpdateTitle), ("finding microphones to fix..."));
 
             // placeholder for device setting set
             bool setDevice = false;
@@ -72,11 +59,11 @@ namespace Fix_My_Microphone
             try
             {
                 // get the devices connected
-                MMDeviceEnumerator DevEnum = new MMDeviceEnumerator();
-                MMDeviceCollection devices = DevEnum.EnumerateAudioEndPoints(EDataFlow.eCapture, EDeviceState.DEVICE_STATEMASK_ALL);
+                MMDeviceEnumerator devEnum = new MMDeviceEnumerator();
+                MMDeviceCollection devices = devEnum.EnumerateAudioEndPoints(EDataFlow.eCapture, EDeviceState.DEVICE_STATEMASK_ALL);
 
                 // show how many devices we found
-                P.Dispatcher.Invoke(new UpdateTitleCallback(this.UpdateTitle), new object[] { string.Format("found {0} possible devices", devices.Count) });
+                P.Dispatcher.Invoke(new UpdateTitleCallback(UpdateTitle), string.Format("found {0} possible devices", devices.Count));
 
                 // holder for progress spinner
                 int t = 0;
@@ -93,7 +80,7 @@ namespace Fix_My_Microphone
                             break;
 
                         Thread.Sleep(35);
-                        P.Dispatcher.Invoke(new UpdateProgressCallback(this.UpdateProgress), new object[] { j });
+                        P.Dispatcher.Invoke(new UpdateProgressCallback(UpdateProgress), j);
                     }
 
                     // dont spin too fast
@@ -101,13 +88,13 @@ namespace Fix_My_Microphone
 
                     // extract device data
                     MMDevice deviceAt = devices[i];
-                    string low_name = deviceAt.FriendlyName.ToLower();
+                    string lowName = deviceAt.FriendlyName.ToLower();
 
                     // skip not present devices
                     if (deviceAt.State == EDeviceState.DEVICE_STATE_NOTPRESENT)
                     {
                         // not present
-                        P.Dispatcher.Invoke(new UpdateTitleCallback(this.UpdateTitle), new object[] { string.Format("skipping {0}, device not present", low_name) });
+                        P.Dispatcher.Invoke(new UpdateTitleCallback(UpdateTitle), string.Format("skipping {0}, device not present", lowName));
                         continue;
                     }
 
@@ -115,7 +102,7 @@ namespace Fix_My_Microphone
                     if (deviceAt.State == EDeviceState.DEVICE_STATE_UNPLUGGED)
                     {
                         // not plugged in
-                        P.Dispatcher.Invoke(new UpdateTitleCallback(this.UpdateTitle), new object[] { string.Format("skipping {0}, device unplugged", low_name) });
+                        P.Dispatcher.Invoke(new UpdateTitleCallback(UpdateTitle), string.Format("skipping {0}, device unplugged", lowName));
                         continue;
                     }
 
@@ -124,28 +111,31 @@ namespace Fix_My_Microphone
                     {
                         deviceAt.AudioEndpointVolume.Mute = false;
                         deviceAt.AudioEndpointVolume.MasterVolumeLevelScalar = 1;
-                        P.Dispatcher.Invoke(new UpdateTitleCallback(this.UpdateTitle), new object[] { string.Format("{0} : unmute, volume (100%)", low_name) });
+                        P.Dispatcher.Invoke(new UpdateTitleCallback(UpdateTitle), string.Format("{0} : unmute, volume (100%)", lowName));
 
                         // mark as passed this section if name is microphone
-                        if (low_name.Contains("microphone")) setDevice = true;
+                        if (lowName.Contains("microphone")) setDevice = true;
                     }
-                    catch { }
+                    catch
+                    {
+                        // ignored
+                    }
                 }
 
                 // did we even find any devices?
                 if (devices.Count == 0)
                 {
                     // failure, can't continue
-                    P.Dispatcher.Invoke(new UpdateTitleCallback(this.UpdateTitle), new object[] { "no microphones found" });
+                    P.Dispatcher.Invoke(new UpdateTitleCallback(UpdateTitle), "no microphones found");
 
                     // reset progressbar
-                    P.Dispatcher.Invoke(new UpdateProgressCallback(this.UpdateProgress), new object[] { 0 });
+                    P.Dispatcher.Invoke(new UpdateProgressCallback(UpdateProgress), new object[] { 0 });
 
                     // hide the microphone icon
-                    Mic.Dispatcher.Invoke(new HideMicCallback(this.HideMic));
+                    Mic.Dispatcher.Invoke(new HideMicCallback(HideMic));
 
                     // show failure X
-                    X.Dispatcher.Invoke(new ShowXCallback(this.ShowX));
+                    X.Dispatcher.Invoke(new ShowXCallback(ShowX));
                     return;
                 }
             }
@@ -159,42 +149,42 @@ namespace Fix_My_Microphone
             }
 
             // hide the microphone icon
-            Mic.Dispatcher.Invoke(new HideMicCallback(this.HideMic));
+            Mic.Dispatcher.Invoke(new HideMicCallback(HideMic));
 
             // did we do some good?
             if (!setDevice)
             {
                 // failure, can't continue
-                P.Dispatcher.Invoke(new UpdateTitleCallback(this.UpdateTitle), new object[] { "all valid microphones unplugged or disabled" });
+                P.Dispatcher.Invoke(new UpdateTitleCallback(UpdateTitle), "all valid microphones unplugged or disabled");
 
                 // reset progressbar
-                P.Dispatcher.Invoke(new UpdateProgressCallback(this.UpdateProgress), new object[] { 0 });
+                P.Dispatcher.Invoke(new UpdateProgressCallback(UpdateProgress), new object[] { 0 });
 
                 // show failure X
-                X.Dispatcher.Invoke(new ShowXCallback(this.ShowX));
+                X.Dispatcher.Invoke(new ShowXCallback(ShowX));
             }
             else
             {
                 // finsh out the progress bar
-                P.Dispatcher.Invoke(new UpdateProgressCallback(this.UpdateProgress), new object[] { 100 });
+                P.Dispatcher.Invoke(new UpdateProgressCallback(UpdateProgress), 100);
 
                 // show the checkmark
-                CheckMark.Dispatcher.Invoke(new ShowCheckCallback(this.ShowCheck));
+                CheckMark.Dispatcher.Invoke(new ShowCheckCallback(ShowCheck));
 
                 // done
-                P.Dispatcher.Invoke(new UpdateTitleCallback(this.UpdateTitle), new object[] { "done with microphone(s)" });
+                P.Dispatcher.Invoke(new UpdateTitleCallback(UpdateTitle), "done with microphone(s)");
 
                 // Zzzz
                 Thread.Sleep(2000);
 
                 // reset progressbar
-                P.Dispatcher.Invoke(new UpdateProgressCallback(this.UpdateProgress), new object[] { 0 });
+                P.Dispatcher.Invoke(new UpdateProgressCallback(UpdateProgress), new object[] { 0 });
 
                 // hide the check mark
-                CheckMark.Dispatcher.Invoke(new HideCheckCallback(this.HideCheck));
+                CheckMark.Dispatcher.Invoke(new HideCheckCallback(HideCheck));
 
                 // show the pulsing chrome icon
-                CheckMark.Dispatcher.Invoke(new ShowChromeCallback(this.ShowChrome));
+                CheckMark.Dispatcher.Invoke(new ShowChromeCallback(ShowChrome));
 
                 // figure out how many chrome processes are open and running
                 Process[] chromeInstances = Process.GetProcessesByName("chrome");
@@ -204,7 +194,7 @@ namespace Fix_My_Microphone
                 if (total <= 0)
                 {
                     // indicate chrome restart
-                    P.Dispatcher.Invoke(new UpdateTitleCallback(this.UpdateTitle), new object[] { "opening chrome..." });
+                    P.Dispatcher.Invoke(new UpdateTitleCallback(UpdateTitle), "opening chrome...");
 
                     // open chrome
                     Process.Start(@"chrome.exe");
@@ -212,10 +202,10 @@ namespace Fix_My_Microphone
                 else
                 {
                     // indicate chrome restart
-                    P.Dispatcher.Invoke(new UpdateTitleCallback(this.UpdateTitle), new object[] { "restarting chrome..." });
+                    P.Dispatcher.Invoke(new UpdateTitleCallback(UpdateTitle), "restarting chrome...");
 
                     // restart all instances of chrome, wait for them to all close
-                    Process.Start(@"chrome.exe", "http://restart.chrome/");
+                    Process.Start(@"chrome.exe", "chrome://restart");
 
                     // stopwatch for give up plan
                     Stopwatch sw = new Stopwatch();
@@ -237,7 +227,7 @@ namespace Fix_My_Microphone
                             total = Math.Max(total, chromeInstances.Length);
 
                             // update th eprogress bar
-                            P.Dispatcher.Invoke(new UpdateProgressCallback(this.UpdateProgress), new object[] { Math.Ceiling((((double)total - (double)chromeInstances.Length) / (double)total) * 100) });
+                            P.Dispatcher.Invoke(new UpdateProgressCallback(UpdateProgress), Math.Ceiling(((total - (double)chromeInstances.Length) / total) * 100));
                         }
 
                         // dont spin the cpu
@@ -246,16 +236,16 @@ namespace Fix_My_Microphone
                 }
 
                 // set to 100% for visual clue
-                P.Dispatcher.Invoke(new UpdateProgressCallback(this.UpdateProgress), new object[] { 100 });
+                P.Dispatcher.Invoke(new UpdateProgressCallback(UpdateProgress), 100);
 
                 // hide the pulsing chrome icon
-                CheckMark.Dispatcher.Invoke(new HideChromeCallback(this.HideChrome));
+                CheckMark.Dispatcher.Invoke(new HideChromeCallback(HideChrome));
 
                 // show the check mark
-                CheckMark.Dispatcher.Invoke(new ShowCheckCallback(this.ShowCheck));
+                CheckMark.Dispatcher.Invoke(new ShowCheckCallback(ShowCheck));
 
                 // set done and good luck messaging
-                P.Dispatcher.Invoke(new UpdateTitleCallback(this.UpdateTitle), new object[] { "done, good luck on your exam!" });
+                P.Dispatcher.Invoke(new UpdateTitleCallback(UpdateTitle), "done, good luck on your exam!");
 
                 // let them read it and wait
                 Thread.Sleep(5000);
@@ -287,9 +277,9 @@ namespace Fix_My_Microphone
         private void HideMic() { Mic.Visibility = Visibility.Hidden; }
 
         // title change for progress of events
-        private void UpdateTitle(string m) { this.Title = m; }
+        private void UpdateTitle(string m) { Title = m; }
 
         // load it up
-        private void OnWindowLoaded(object sender, RoutedEventArgs e) { Thread UI = new Thread(new ThreadStart(UIThread)); UI.Start(); }
+        private void OnWindowLoaded(object sender, RoutedEventArgs e) { Thread ui = new Thread(UiThread); ui.Start(); }
     }
 }
