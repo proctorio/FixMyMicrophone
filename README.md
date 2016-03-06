@@ -1,10 +1,11 @@
 Fix My Microphone!
 ============
 
-A small application for Windows users that will automatically unmute and fix the volume of all microphones attached to the computer.
+A small application for Windows, Mac, and Linux users that will automatically unmute and fix the volume of all microphones attached to the computer.
 
 Windows XP, Vista, 7, 8, 8.1 and 10
 Mac OS X 10.6+
+GNU/Linux Kernel 2.6+
 
 
 Why Open Source this?
@@ -27,6 +28,13 @@ http://www.codeguru.com/csharp/csharp/cs_graphics/sound/article.php/c10931.
 And uses Ray Molenkamp's C# managed wrapper for accessing the Vista Core Audio API
 
 http://www.codeproject.com/KB/vista/CoreAudio.aspx?msg=2489276
+
+
+FixMyLinuxMic uses BASH scripting and the Pulse Audio control utility and was compiled into a C binary using Francisco Javier Rosales García SHC shell compiler.
+
+http://linux.die.net/man/1/pactl
+https://www.gnu.org/software/bash/
+http://www.datsi.fi.upm.es/~frosal/sources/shc.html
 
 
 Other references:
