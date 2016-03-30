@@ -1,28 +1,0 @@
--- open the system preferences
-tell application "System Preferences"	
-set current pane to pane id "com.apple.preference.sound"
-end tell-- navigate to the sound icon
-tell application "System Events" to tell process "System Preferences"	
-set frontmost to true		-- we need to wait until the sound menu opens	
-repeat until exists tab group 1 of window "Sound"	end repeat		-- switch over to input now	
-click radio button "input" of tab group 1 of window "Sound"	
-	-- we only want the internal microphone	tell table 1 of scroll area 1 of tab group 1 of window 1	
-	select (row 1 where value of text field 1 is "Internal microphone")	
-end tell		-- we need to wait until the checkbox appears	repeat until exists checkbox 1 of tab group 1 of window "Sound"
-	end repeat	
-	-- make sure ambient noise reduction is unchecked	
-if (get value of checkbox 1 of tab group 1 of window "Sound") = 1 then	
-	-- the value of the checkbox is 0 if unchecked; 1 if checked	
-	click checkbox 1 of tab group 1 of window "Sound"	
-end if
-end tell
--- now that internal is set, make sure volume is 100%
-tell application "System Events"	
-set volume input volume 100
-end tell
--- all done, close up
-tell application "System Preferences"	
-quit
-end tell-- we need to tell chrome to close and reopen
-tell application "Google Chrome"		-- special chrome restart url to force close it	activate	open location "chrome://restart"
-end tell
