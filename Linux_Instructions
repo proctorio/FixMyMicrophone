@@ -1,0 +1,3 @@
+In order to use this file on linux, first download the file, then right click it and select properties. Then go to the "permissions" tab and check the box labeled "allow executing file as program".
+Then open a terminal, drag & drop the file into the terminal, and hit enter. On some distributions you will need to click "copy file location" when prompted.
+On Debian based distributions you must first type "su", hit enter, and then type your password before you can run this script.
